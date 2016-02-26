@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Painel Avisos</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/flowtype.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container painel">
+            <div class="row header">
+                <div class="col-lg-12">
+                    <div class="barra-superior">&nbsp;</div>
+                    <div class="logo">          
+                        <img src="img/logo-kerigma.png" />
+                        <span>Avisos...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row body">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12 imagem-noticia">
+                            <img src="img/demo/diacomdeus.png" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12 texto-principal">
+                            <div class="texto-noticia">
+                                <p class="titulo">DIA COM DEUS</p>
+                                <p>Local: Comunidade Batista Nacional Kerigma.</p>
+                                <p>Dia 27/12 9H às 17H</p>
+                                <p>Louvor, Ministração, Batismo com Espírito Santo.</p>
+                                <p>Realização: Ministério Sarça Ardente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row footer">
+                <div class="col-lg-12 control-painel">
+                    <ul class="controls">
+                        <li><img src="img/controls-painel-left.png" /></li>
+                        <li><img src="img/controls-painel-menu.png" /></li>
+                        <li><img src="img/controls-painel-right.png" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function retornaMedidaPixel(tamanhoTotal, percentual) {
+                return (percentual * tamanhoTotal) / 100;
+            }
+
+            function ajustarTela() {
+                console.log("chamou");
+                $(".painel").css("height", $(window).height());
+                $(".body").css("height", ($(window).height() - ($(".header").height() + $(".footer").height())));
+
+                console.log($(window).height());
+                console.log($(".header").height());
+                console.log($(".body .texto-principal").height());
+                console.log($(".footer").height());
+
+                tamanhoTotal = $(window).height();
+
+                if ($(window).width() > $(window).height()) {
+                    $(".body .imagem-noticia").height("");
+
+                    $(".header").height(retornaMedidaPixel(tamanhoTotal, 22.58));
+                    $(".footer").height(retornaMedidaPixel(tamanhoTotal, 9.65));
+                    $(".body").height(retornaMedidaPixel(tamanhoTotal, 67.75));
+
+                    $(".body .imagem-noticia img").height(retornaMedidaPixel(tamanhoTotal, 67.75));
+                    $(".body .imagem-noticia img").css("max-height", retornaMedidaPixel(tamanhoTotal, 67.75));
+                } else {
+                    $(".header").height("");
+                    $(".footer").height("");
+                    $(".body").height("");
+
+                    $(".body .imagem-noticia img").height($(window).height() - ($(".header").height() + $(".body .texto-principal").height() + $(".footer").height()));
+                    $(".body .imagem-noticia").css("max-height", $(".body").height());
+                }
+            }
+
+
+            $(document).ready(function () {
+                $('body').flowtype();
+
+                $(window).resize(function () {
+                    ajustarTela();
+                });
+
+                ajustarTela();
+            });
+        </script>
+    </body>
+</html>
